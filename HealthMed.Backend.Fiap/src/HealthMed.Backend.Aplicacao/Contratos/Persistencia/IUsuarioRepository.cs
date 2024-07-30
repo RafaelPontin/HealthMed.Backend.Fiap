@@ -2,7 +2,7 @@
 
 namespace HealthMed.Backend.Aplicacao.Contratos.Persistencia
 {
-    public interface IAgendamentoRepository : IRepositoryBase<Usuario>
+    public interface IUsuarioRepository : IRepositoryBase<Usuario>
     {
         Task<Usuario> ObterPorEmail(string email);
         Task<Usuario> Login(string email, string senha);
