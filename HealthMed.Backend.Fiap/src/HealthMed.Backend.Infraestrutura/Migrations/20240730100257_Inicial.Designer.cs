@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.Backend.Infraestrutura.Migrations
 {
     [DbContext(typeof(HealthMedContext))]
-    [Migration("20240730003147_inicial")]
-    partial class inicial
+    [Migration("20240730100257_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,16 +86,13 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                     b.Property<string>("Cpf")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Senha")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("tipoUsuario")
+                    b.Property<int>("TipoUsuario")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -125,6 +122,29 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                         .HasForeignKey("MedicoId");
 
                     b.Navigation("Medico");
+                });
+
+            modelBuilder.Entity("HealthMed.Backend.Dominio.Entidades.Usuario", b =>
+                {
+                    b.OwnsOne("HealthMed.Backend.Dominio.ObjetosDeValor.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("UsuarioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("EnderecoEmail")
+                                .IsRequired()
+                                .HasColumnType("varchar(max)")
+                                .HasColumnName("Email");
+
+                            b1.HasKey("UsuarioId");
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UsuarioId");
+                        });
+
+                    b.Navigation("Email");
                 });
 
             modelBuilder.Entity("HealthMed.Backend.Dominio.Entidades.Usuario", b =>

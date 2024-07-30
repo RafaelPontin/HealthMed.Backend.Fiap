@@ -2,7 +2,7 @@
 
 namespace HealthMed.Backend.Aplicacao.DTOs.Usuarios
 {
-    public class UsuarioResponse
+    public abstract class UsuarioResponse
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
@@ -10,14 +10,30 @@ namespace HealthMed.Backend.Aplicacao.DTOs.Usuarios
         public string Email { get; set; }
         public string CRM { get; set; }
 
-        public UsuarioResponse ConvertToDto(Usuario usuario)
+        public virtual UsuarioResponse ConvertToDto(Usuario usuario)
         {
             Id = usuario.Id;
             Nome = usuario.Nome;
-            Cpf = usuario.Cpf;
-            CRM = usuario.CRM;
+            Cpf = usuario.Cpf;            
 
             return this;
+        }
+    }
+
+
+    public class PacienteResponse : UsuarioResponse
+    {
+        public override UsuarioResponse ConvertToDto(Usuario usuario)
+        {
+            return base.ConvertToDto(usuario);
+        }
+    }
+    public class MedicoResponse : UsuarioResponse
+    {
+        public override UsuarioResponse ConvertToDto(Usuario usuario)
+        {
+            CRM = usuario.CRM;
+            return base.ConvertToDto(usuario);
         }
     }
 }

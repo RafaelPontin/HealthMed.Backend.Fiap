@@ -1,6 +1,5 @@
 ﻿using HealthMed.Backend.Dominio.Enum;
 using HealthMed.Backend.Dominio.ObjetosDeValor;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HealthMed.Backend.Dominio.Entidades;
 public class Usuario : Base
@@ -13,24 +12,24 @@ public class Usuario : Base
     public Usuario(string nome, string cpf, string senha, string email, ETipoUsuario tipoUsuario)
     {
         if (!UsuarioEhValido(nome, cpf, senha, email, tipoUsuario))
-            throw new ArgumentException($"É necessário informar todos os campos.");
+            Erros.Add($"É necessário informar todos os campos.");
 
         Nome = nome.Trim();        
         Senha = senha.Trim();
         Cpf = cpf.Trim();
-        Email = new Email(email.Trim());        
+        Email = ObterEmail(email.Trim());        
         TipoUsuario = ETipoUsuario.Paciente;
     }
 
     public Usuario(string nome, string cpf, string senha, string email, ETipoUsuario tipoUsuario, string crm)
     {
-        if (!UsuarioEhValido(nome, cpf, senha, email, tipoUsuario))
-            throw new ArgumentException($"É necessário informar todos os campos.");
+        if (!UsuarioEhValido(nome, cpf, senha, email, tipoUsuario, crm))
+            Erros.Add($"É necessário informar todos os campos.");
 
         Nome = nome.Trim();
         Senha = senha.Trim();
         Cpf = cpf.Trim();
-        Email = new Email(email.Trim());
+        Email = ObterEmail(email.Trim());
         CRM = crm.Trim();
         TipoUsuario = ETipoUsuario.Medico;
     }
@@ -76,7 +75,7 @@ public class Usuario : Base
     public void AlterarDadosDoUsuario(string nome, string cpf, ETipoUsuario tipoUsuario, string crm = null)
     {
         if (!UsuarioEhValido(nome, cpf, Senha, Email.EnderecoEmail, tipoUsuario))
-            throw new ArgumentException($"É necessário informar todos os campos.");
+            Erros.Add($"É necessário informar todos os campos.");
         Nome = nome.Trim();
         Cpf = cpf.Trim();
         CRM = tipoUsuario == ETipoUsuario.Medico ? crm?.Trim() : null;
@@ -85,7 +84,7 @@ public class Usuario : Base
     public void AlterarSenha(string senha)
     {
         if (string.IsNullOrWhiteSpace(senha))
-            throw new ArgumentNullException(nameof(senha), $"A senha não pode estar vazio ou nula.");
+            Erros.Add($"A senha não pode estar vazio ou nula.");
 
         Senha = senha;
     }
@@ -104,5 +103,18 @@ public class Usuario : Base
         }
 
         return senha;
+    }
+
+    private Email ObterEmail(string email)
+    {
+        try
+        {
+            return new Email(email.Trim());
+        }
+        catch (Exception)
+        {
+            Erros.Add("Email inválido");
+            return null;
+        }
     }
 }
