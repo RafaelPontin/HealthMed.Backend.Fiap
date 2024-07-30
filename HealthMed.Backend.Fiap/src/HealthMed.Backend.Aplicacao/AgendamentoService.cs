@@ -30,11 +30,34 @@ public class AgendamentoService
             return response;
         }
 
+        horario.HorarioIndisponivel();
+
         await _horarioRepository.AlterarAsync(horario);
         await _agendamentoRepository.AdicionarAsync(agendamento);
 
         return response;
     }
 
+    public async Task<ResponseResult<bool>> CancelarAgendamento(Guid idAgendamento)
+    {
+        var response = new ResponseResult<bool>();
 
+        var agendamento = await _agendamentoRepository.ObterPorIdAsync(idAgendamento);
+
+        if (agendamento == null)
+        {
+            response.Status = 404;
+            response.Erros.Add("Agendamento não encontrado");
+            return response;
+        }
+
+        var horario = await _horarioRepository.ObterPorIdAsync(agendamento.Horario.Id);
+
+        horario.HorarioDisponivel();
+
+        await _horarioRepository.AlterarAsync(horario);
+        await _agendamentoRepository.DeletarAsync(agendamento);
+
+        return response;
+    }
 }
