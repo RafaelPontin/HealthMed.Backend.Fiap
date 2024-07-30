@@ -27,10 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\HealthMed.Backend.Aplicacao\HealthMed.Backend.Aplicacao.csproj" />
     <ProjectReference Include="..\HealthMed.Backend.Infraestrutura\HealthMed.Backend.Infraestrutura.csproj" />
   </ItemGroup>
 

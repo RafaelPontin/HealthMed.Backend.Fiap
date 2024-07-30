@@ -12,6 +12,13 @@ namespace HealthMed.Backend.Infraestrutura.Configuration
             builder.HasKey(u => u.Id);
             builder.HasMany(x => x.Agendamentos);
             builder.HasMany(x => x.Horarios);
+            builder.OwnsOne(c => c.Email, tf =>
+            {
+                tf.Property(c => c.EnderecoEmail)
+                    .IsRequired()
+                    .HasColumnName("Email")
+                    .HasColumnType($"varchar(max)");
+            });
         }
     }
 }

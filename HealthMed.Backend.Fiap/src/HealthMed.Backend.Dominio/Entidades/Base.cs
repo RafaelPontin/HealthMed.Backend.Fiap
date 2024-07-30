@@ -1,8 +1,11 @@
-﻿namespace HealthMed.Backend.Dominio.Entidades
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HealthMed.Backend.Dominio.Entidades
 {
     public abstract class Base
     {
         public Guid Id { get; private set; }
+        [NotMapped]
         public IList<string> Erros { get; private set; }
 
         public Base()
