@@ -227,7 +227,8 @@ namespace HealthMed.Backend.Aplicacao
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email.ToString(), usuario.Email.ToString()),
+                    new Claim(ClaimTypes.Email.ToString(), usuario.Email.EnderecoEmail),
+                    new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToString()),
                     new Claim("Tipo", usuario.TipoUsuario.ToString()),
                     new Claim("Id", usuario.Id.ToString()),
                 }),
