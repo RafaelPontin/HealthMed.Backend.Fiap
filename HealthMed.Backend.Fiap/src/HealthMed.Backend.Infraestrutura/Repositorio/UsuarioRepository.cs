@@ -11,6 +11,16 @@ namespace HealthMed.Backend.Infraestrutura.Repositorio
         {
         }
 
+        public async Task<List<Usuario>> BuscarMedicos()
+        {
+            return await _dbContext.Usuario.Where(x => x.TipoUsuario == Dominio.Enum.ETipoUsuario.Medico).ToListAsync();
+        }
+
+        public async Task<Usuario> Login(string email, string senha)
+        {
+            return await _dbContext.Usuario.Where(x => x.Email.EnderecoEmail == email && x.Senha == senha).FirstOrDefaultAsync();
+        }
+
         public async Task<Usuario> ObterPorEmail(string email)
         {
             return await _dbContext.Usuario.Where(x => x.Email.EnderecoEmail == email).FirstOrDefaultAsync();

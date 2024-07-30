@@ -42,5 +42,27 @@ namespace HealthMed.Backend.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginAsync(LoginDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Informações inválidas");
+            }
+
+            var response = await _usuarioService.Login(request.Login, request.Senha);
+
+            return Ok(response);
+        }
+
+        [HttpGet("buscar-medicos")]        
+        public async Task<IActionResult> BuscarMedicosAsync()
+        {            
+            var response = await _usuarioService.BuscarMedicos();
+
+            return Ok(response);
+        }
     }
 }

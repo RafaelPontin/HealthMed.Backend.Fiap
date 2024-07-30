@@ -10,5 +10,7 @@ namespace HealthMed.Backend.Aplicacao.Contratos.Servico
         Task<ResponseResult<bool>> AlterarUsuario(AlterarUsuarioDTO dto);
         Task<ResponseResult<IList<UsuarioDto>>> ListarUsuarios();
         Task<ResponseResult<UsuarioDto>> GetById(Guid Id);
+        Task<ResponseResult<UsuarioLogadoResponse>> Login(string email, string senha);
+        Task<ResponseResult<List<MedicoResponse>>> BuscarMedicos();
     }
 }
