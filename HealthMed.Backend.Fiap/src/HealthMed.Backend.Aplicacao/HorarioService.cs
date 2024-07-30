@@ -91,4 +91,35 @@ public class HorarioService : IHorarioService
 
         return response;
     }
+
+    public async Task<ResponseResult<bool>> AlterarHorarioDisponivel(Guid idHorario)
+    {
+        var response = new ResponseResult<bool>();
+        var horario = await _horarioRepository.ObterPorIdAsync(idHorario);
+        
+        if (horario == null)
+        {
+            response.Erros.Add($"Horario: {idHorario} não encontrato");
+            response.Status = 404;
+            response.Data = false;
+            return response;
+        }
+
+
+        if(horario.Disponivel)
+        {
+            horario.HorarioIndisponivel();
+            await _horarioRepository.AlterarAsync(horario);
+            response.Status = 201;
+            response.Data = true;
+        }
+        else
+        {
+            response.Erros.Add($"Horario {idHorario} não esta disponivel");
+            response.Status = 400;
+            response.Data = false;
+        }
+
+        return response;
+    }
 }

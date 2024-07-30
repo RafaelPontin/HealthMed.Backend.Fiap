@@ -27,7 +27,11 @@ public class Horarios : Base
         SetMedico(medico);
         SetHorario(dataInicio, dataFinal);
         SetCriacao();
+        Disponivel = true;
     }
+
+    public void HorarioIndisponivel() => Disponivel = false;
+    
 
     private void SetId(Guid idHorario)
     {
