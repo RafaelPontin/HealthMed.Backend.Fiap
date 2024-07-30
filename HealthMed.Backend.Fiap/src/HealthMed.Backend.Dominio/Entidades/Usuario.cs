@@ -8,7 +8,7 @@ public class Usuario : Base
     public string CRM { get; private set; }
     public string Email { get; private set; }
     public string Senha { get; private set; }
-    public ETipoUsuario tipoUsuario { get; private set; }
+    public ETipoUsuario TipoUsuario { get; private set; }
     public ICollection<Agendamentos> Agendamentos { get; private set; }
     public ICollection<Horarios> Horarios { get; private set; }
 }
