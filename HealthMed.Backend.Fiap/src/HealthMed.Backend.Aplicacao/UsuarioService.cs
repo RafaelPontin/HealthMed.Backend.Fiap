@@ -14,10 +14,10 @@ namespace HealthMed.Backend.Aplicacao
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _repository;
+        private readonly IAgendamentoRepository _repository;
         private readonly IConfiguration _configuration;
 
-        public UsuarioService(IUsuarioRepository repository, IConfiguration configuration)
+        public UsuarioService(IAgendamentoRepository repository, IConfiguration configuration)
         {
             _repository = repository;
             _configuration = configuration;

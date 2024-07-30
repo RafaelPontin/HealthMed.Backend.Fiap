@@ -16,7 +16,7 @@ namespace HealthMed.Backend.Infraestrutura
 
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-            services.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioRepository));          
+            services.AddScoped(typeof(IAgendamentoRepository), typeof(UsuarioRepository));          
 
             return services;
         }
