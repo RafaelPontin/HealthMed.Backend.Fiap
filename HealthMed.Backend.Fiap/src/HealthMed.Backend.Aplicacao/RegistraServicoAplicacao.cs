@@ -10,6 +10,7 @@ namespace HealthMed.Backend.Aplicacao
             //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IHorarioService, HorarioService>();
 
             return services;
         }
