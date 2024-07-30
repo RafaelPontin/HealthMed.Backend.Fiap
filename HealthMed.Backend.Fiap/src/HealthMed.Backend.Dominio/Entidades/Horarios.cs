@@ -11,7 +11,7 @@ public class Horarios : Base
     public Usuario Medico { get; private set; }
 
 
-    public void AdicionarHorario(Usuario medico, DateTime dataInicio, DateTime dataFinal)
+    public void Adicionar(Usuario medico, DateTime dataInicio, DateTime dataFinal)
     {
         SetMedico(medico);
         SetHorario(dataInicio, dataFinal);

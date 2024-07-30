@@ -15,7 +15,7 @@ namespace HealthMed.Backend.Dominio.Test
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
 
             Horarios horarioValido = new Horarios();
-            horarioValido.AdicionarHorario(medico, horarioInicioValido, horaioFinalValido);
+            horarioValido.Adicionar(medico, horarioInicioValido, horaioFinalValido);
 
             Assert.False(horarioValido.Id == Guid.Empty);
             Assert.Equal(horarioValido.HorarioInicio, horarioInicioValido);
@@ -37,7 +37,7 @@ namespace HealthMed.Backend.Dominio.Test
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
 
             Horarios horarioInvalido = new Horarios();
-            horarioInvalido.AdicionarHorario(medico, horarioInicioValido, horaioFinalValido);
+            horarioInvalido.Adicionar(medico, horarioInicioValido, horaioFinalValido);
 
             Assert.True(horarioInvalido.Erros.Any());
         }
@@ -55,7 +55,7 @@ namespace HealthMed.Backend.Dominio.Test
             DateTime horaioFinalInvalido = DateTime.Now;
 
             Horarios horarioInvalido = new Horarios();
-            horarioInvalido.AdicionarHorario(medico, horarioInicioInvalido, horaioFinalInvalido);
+            horarioInvalido.Adicionar(medico, horarioInicioInvalido, horaioFinalInvalido);
 
             Assert.True(horarioInvalido.Erros.Any());
 
@@ -74,7 +74,7 @@ namespace HealthMed.Backend.Dominio.Test
             DateTime horaioFinalInvalido = horarioInicioInvalido;
 
             Horarios horarioInvalido = new Horarios();
-            horarioInvalido.AdicionarHorario(medico, horarioInicioInvalido, horaioFinalInvalido);
+            horarioInvalido.Adicionar(medico, horarioInicioInvalido, horaioFinalInvalido);
 
             Assert.True(horarioInvalido.Erros.Any());
 
@@ -123,5 +123,61 @@ namespace HealthMed.Backend.Dominio.Test
             Assert.True(horarioInvalido.Erros.Any());
         }
 
+
+        [Fact(DisplayName = "Alterar Horario com usuario invalido")]
+        public void Alterarar_Horario_Medico_Invalido()
+        {
+            Usuario medico = new Usuario()
+            {
+                TipoUsuario = Enum.ETipoUsuario.Paciente,
+            };
+
+            DateTime horarioInicioValido = DateTime.Now;
+            DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
+            Guid idHorario = Guid.NewGuid();
+
+            Horarios horarioInvalido = new Horarios();
+            horarioInvalido.Alterar(medico, horarioInicioValido, horaioFinalValido, idHorario);
+
+            Assert.True(horarioInvalido.Erros.Any());
+        }
+
+        [Fact(DisplayName = "Alterar Horario com data Invalida")]
+        public void Alterar_Horario_Com_Data_Invalida()
+        {
+            Usuario medico = new Usuario()
+            {
+                TipoUsuario = Enum.ETipoUsuario.Medico,
+            };
+
+            DateTime horarioInicioInvalido = DateTime.Now.AddMinutes(30);
+            DateTime horaioFinalInvalido = DateTime.Now;
+            Guid idHorario = Guid.NewGuid();
+
+            Horarios horarioInvalido = new Horarios();
+            horarioInvalido.Alterar(medico, horarioInicioInvalido, horaioFinalInvalido, idHorario);
+
+            Assert.True(horarioInvalido.Erros.Any());
+
+        }
+
+        [Fact(DisplayName = "Alterar Horario com data Iguais")]
+        public void Alterar_Horario_Com_Data_Iguais()
+        {
+            Usuario medico = new Usuario()
+            {
+                TipoUsuario = Enum.ETipoUsuario.Medico,
+            };
+
+            DateTime horarioInicioInvalido = DateTime.Now;
+            DateTime horaioFinalInvalido = horarioInicioInvalido;
+            Guid idHorario = Guid.NewGuid();
+
+            Horarios horarioInvalido = new Horarios();
+            horarioInvalido.Alterar(medico, horarioInicioInvalido, horaioFinalInvalido, idHorario);
+
+            Assert.True(horarioInvalido.Erros.Any());
+
+        }
     }
 }
