@@ -7,9 +7,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Adicionando um horario valido")]
         public void Criar_Horario_Valido()
         {
-            Usuario medico = new Usuario() { 
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioValido = DateTime.Now;
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
@@ -28,10 +26,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Adicionar Horario com usuario invalido")]
         public void Criar_Horario_Medico_Invalido()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Paciente,
-            };
+            Usuario medico = GetMedicoInvalido();
 
             DateTime horarioInicioValido = DateTime.Now;
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
@@ -46,10 +41,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Adiciona Horario com data Invalida")]
         public void Criar_Horario_Com_Data_Invalida()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioInvalido = DateTime.Now.AddMinutes(30);
             DateTime horaioFinalInvalido = DateTime.Now;
@@ -65,10 +57,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Adiciona Horario com data Iguais")]
         public void Criar_Horario_Com_Data_Iguais()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioInvalido = DateTime.Now;
             DateTime horaioFinalInvalido = horarioInicioInvalido;
@@ -84,10 +73,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Alterar um horario valido")]
         public void Alterar_Horario_Valido()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioValido = DateTime.Now;
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
@@ -108,10 +94,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Alterar horario invalido")]
         public void Alterar_Horario_Guid_Vazio()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioValido = DateTime.Now;
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
@@ -127,10 +110,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Alterar Horario com usuario invalido")]
         public void Alterarar_Horario_Medico_Invalido()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Paciente,
-            };
+            Usuario medico = GetMedicoInvalido();
 
             DateTime horarioInicioValido = DateTime.Now;
             DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
@@ -145,10 +125,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Alterar Horario com data Invalida")]
         public void Alterar_Horario_Com_Data_Invalida()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioInvalido = DateTime.Now.AddMinutes(30);
             DateTime horaioFinalInvalido = DateTime.Now;
@@ -164,10 +141,7 @@ namespace HealthMed.Backend.Dominio.Test
         [Fact(DisplayName = "Alterar Horario com data Iguais")]
         public void Alterar_Horario_Com_Data_Iguais()
         {
-            Usuario medico = new Usuario()
-            {
-                TipoUsuario = Enum.ETipoUsuario.Medico,
-            };
+            Usuario medico = GetMedicoValido();
 
             DateTime horarioInicioInvalido = DateTime.Now;
             DateTime horaioFinalInvalido = horarioInicioInvalido;
@@ -179,5 +153,12 @@ namespace HealthMed.Backend.Dominio.Test
             Assert.True(horarioInvalido.Erros.Any());
 
         }
+
+
+        private Usuario GetMedicoValido() 
+                => new Usuario("Medico", "1234567890", "1ab2c3", "email@medico.com", Enum.ETipoUsuario.Medico, "123123");
+        
+        private Usuario GetMedicoInvalido() =>
+            new Usuario("Medico", "1234567890", "1ab2c3", "email@medico.com", Enum.ETipoUsuario.Paciente, "123123");
     }
 }
