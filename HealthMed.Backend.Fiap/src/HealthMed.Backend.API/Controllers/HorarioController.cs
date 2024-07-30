@@ -1,9 +1,11 @@
 ﻿using HealthMed.Backend.Aplicacao.Contratos.Servico;
 using HealthMed.Backend.Aplicacao.DTOs.Horario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthMed.Backend.API.Controllers
 {
+    [Authorize(Roles = "Medico")]
     public class HorarioController : BaseController
     {
         private readonly IHorarioService _service;
