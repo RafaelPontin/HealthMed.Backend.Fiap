@@ -17,6 +17,7 @@ public class Usuario : Base
 
         Nome = nome.Trim();        
         Senha = senha.Trim();
+        Cpf = cpf.Trim();
         Email = new Email(email.Trim());        
         TipoUsuario = ETipoUsuario.Paciente;
     }
@@ -28,6 +29,7 @@ public class Usuario : Base
 
         Nome = nome.Trim();
         Senha = senha.Trim();
+        Cpf = cpf.Trim();
         Email = new Email(email.Trim());
         CRM = crm.Trim();
         TipoUsuario = ETipoUsuario.Medico;
@@ -87,7 +89,10 @@ public class Usuario : Base
 
         Senha = senha;
     }
-
+    public bool EhValido()
+    {
+        return !Erros.Any();
+    }
     public string GerarNovaSenha()
     {
         string caracteres = "abcdefghjkmnpqrstuvwxyz023456789";
