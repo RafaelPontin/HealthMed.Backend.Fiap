@@ -1,27 +1,43 @@
 ﻿using HealthMed.Backend.Aplicacao.Comunicacao;
 using HealthMed.Backend.Aplicacao.Contratos.Persistencia;
+using HealthMed.Backend.Aplicacao.Contratos.Servico;
 using HealthMed.Backend.Aplicacao.DTOs.Agendamentos;
 using HealthMed.Backend.Dominio.Entidades;
 
 namespace HealthMed.Backend.Aplicacao;
-public class AgendamentoService
+public class AgendamentoService : IAgendamentoService
 {
     private readonly IAgendamentosRepository _agendamentoRepository;
     private readonly IHorarioRepository _horarioRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
 
-    public AgendamentoService(IAgendamentosRepository agendamentoRepository, IHorarioRepository horarioRepository)
+    public AgendamentoService(IAgendamentosRepository agendamentoRepository, IHorarioRepository horarioRepository, IUsuarioRepository usuarioRepository)
     {
         _agendamentoRepository = agendamentoRepository;
         _horarioRepository = horarioRepository;
+        _usuarioRepository = usuarioRepository;
     }
 
-    public async Task<ResponseResult<bool>> NovoAgendamento(NovoAgendamentoDto dto)
+    public async Task<ResponseResult<IEnumerable<AgendamentoResponseDto>>> ObterAgendamentosPorPaciente(Guid idPaciente)
+    {
+        var response = new ResponseResult<IEnumerable<AgendamentoResponseDto>>();
+
+        var agendamentos = await _agendamentoRepository.ObterPorPacienteAsync(idPaciente);
+
+        response.Data = agendamentos.Select(a => new AgendamentoResponseDto(a));
+
+        return response;
+    }
+
+    public async Task<ResponseResult<bool>> NovoAgendamento(NovoAgendamentoDto dto, Guid idPaciente)
     {
         var response = new ResponseResult<bool>();
 
-        var horario = await _horarioRepository.ObterPorIdAsync(dto.Horario.Id);
+        var horario = await _horarioRepository.ObterPorIdAsync(dto.HorarioId);
+        var paciente = await _usuarioRepository.ObterPorIdAsync(idPaciente);
 
-        var agendamento = new Agendamentos(dto.Paciente, horario);
+
+        var agendamento = new Agendamentos(paciente, horario);
 
         if (agendamento.Erros.Any())
         {

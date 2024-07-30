@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthMed.Backend.Infraestrutura.Repositorio
 {
-    public class UsuarioRepository : RepositoryBase<Usuario>, IAgendamentoRepository
+    public class UsuarioRepository : RepositoryBase<Usuario>, IUsuarioRepository
     {
         public UsuarioRepository(HealthMedContext dbContext) : base(dbContext)
         {
