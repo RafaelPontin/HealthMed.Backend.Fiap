@@ -7,6 +7,7 @@ public class Horarios : Base
     public DateTime HorarioInicio { get; private set; }
     public DateTime HorarioFinal {  get; private set; }
     public DateTime? HorarioCriacao { get; private set; }
+    public bool Disponivel {  get; private set; }
 
     public Usuario Medico { get; private set; }
 
@@ -16,6 +17,7 @@ public class Horarios : Base
         SetMedico(medico);
         SetHorario(dataInicio, dataFinal);
         SetCriacao();
+        Disponivel = true;
     }
 
 
