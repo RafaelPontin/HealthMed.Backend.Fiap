@@ -21,6 +21,7 @@ namespace HealthMed.Backend.Dominio.Test
             Assert.NotNull(horarioValido.Medico);
             Assert.NotNull(horarioValido.HorarioCriacao);
             Assert.False(horarioValido.Erros.Any());
+            Assert.True(horarioValido.Disponivel);
         }
 
         [Fact(DisplayName = "Adicionar Horario com usuario invalido")]
@@ -28,8 +29,8 @@ namespace HealthMed.Backend.Dominio.Test
         {
             Usuario medico = GetMedicoInvalido();
 
-            DateTime horarioInicioValido = DateTime.Now;
-            DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
+            DateTime horarioInicioValido = DateTime.Now.AddMinutes(30);
+            DateTime horaioFinalValido = DateTime.Now;
 
             Horarios horarioInvalido = new Horarios();
             horarioInvalido.Adicionar(medico, horarioInicioValido, horaioFinalValido);
@@ -88,6 +89,7 @@ namespace HealthMed.Backend.Dominio.Test
             Assert.NotNull(horarioValido.Medico);
             Assert.NotNull(horarioValido.HorarioCriacao);
             Assert.False(horarioValido.Erros.Any());
+            Assert.True(horarioValido.Disponivel);
         }
 
 
@@ -112,8 +114,8 @@ namespace HealthMed.Backend.Dominio.Test
         {
             Usuario medico = GetMedicoInvalido();
 
-            DateTime horarioInicioValido = DateTime.Now;
-            DateTime horaioFinalValido = DateTime.Now.AddMinutes(30);
+            DateTime horarioInicioValido = DateTime.Now.AddMinutes(30);
+            DateTime horaioFinalValido = DateTime.Now;
             Guid idHorario = Guid.NewGuid();
 
             Horarios horarioInvalido = new Horarios();

@@ -41,5 +41,18 @@ namespace HealthMed.Backend.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpPut("horario-indisponivel/{idHorario}")]
+        public async Task<IActionResult> AlterarHorarioIndisponivel([FromRoute]Guid idHorario)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Informações inválidas");
+            }
+
+            var response = await _service.AlterarHorarioDisponivel(idHorario);
+
+            return Ok(response);
+        }
     }
 }
