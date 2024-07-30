@@ -19,5 +19,11 @@ namespace HealthMed.Backend.Infraestrutura.Repositorio
                                                                 (h.HorarioFinal >= dataInicio && h.HorarioFinal <= dataFim))).Count();
             return quantidade;
         }
+
+        public async Task<bool> GetHorarioDisponivel(Guid id)
+        {
+            return _dbContext.Horarios.Where(h => h.Id == id).Select(h => h.Disponivel).FirstOrDefault();
+        }
+
     }
 }
