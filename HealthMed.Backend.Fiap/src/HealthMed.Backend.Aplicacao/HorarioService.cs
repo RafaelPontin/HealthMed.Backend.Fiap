@@ -2,7 +2,6 @@
 using HealthMed.Backend.Aplicacao.Contratos.Persistencia;
 using HealthMed.Backend.Aplicacao.Contratos.Servico;
 using HealthMed.Backend.Aplicacao.DTOs.Horario;
-using HealthMed.Backend.Aplicacao.DTOs.Usuarios;
 using HealthMed.Backend.Dominio.Entidades;
 using HealthMed.Backend.Dominio.Enum;
 

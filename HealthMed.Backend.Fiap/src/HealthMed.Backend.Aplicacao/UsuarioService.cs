@@ -1,6 +1,7 @@
 ﻿using HealthMed.Backend.Aplicacao.Comunicacao;
 using HealthMed.Backend.Aplicacao.Contratos.Persistencia;
 using HealthMed.Backend.Aplicacao.Contratos.Servico;
+using HealthMed.Backend.Aplicacao.DTOs.Horario;
 using HealthMed.Backend.Aplicacao.DTOs.Usuarios;
 using HealthMed.Backend.Dominio.Entidades;
 using HealthMed.Backend.Dominio.Enum;
@@ -153,6 +154,31 @@ namespace HealthMed.Backend.Aplicacao
         {
             var usuario = await _repository.ObterPorEmail(email);
             return usuario != null;
+        }
+
+        public async Task<ResponseResult<List<AgendaResponse>>> ObterAgenda(Guid id)
+        {
+            try
+            {
+                var response = new ResponseResult<List<AgendaResponse>>();
+                var agendas = await _repository.ObterAgenda(id);
+                var listaDeAgendas = new List<AgendaResponse>();
+
+                foreach (var agenda in agendas)
+                {
+                    var agendaDto = new AgendaResponse().ConvertToDto(agenda);
+                    listaDeAgendas.Add(agendaDto);
+                }
+
+                return new ResponseResult<List<AgendaResponse>>() { Status = 200, Data = listaDeAgendas };
+            }
+            catch (Exception)
+            {
+
+                return new ResponseResult<List<AgendaResponse>>() { Status = 500, Data = null };
+
+            }
+
         }
 
 
