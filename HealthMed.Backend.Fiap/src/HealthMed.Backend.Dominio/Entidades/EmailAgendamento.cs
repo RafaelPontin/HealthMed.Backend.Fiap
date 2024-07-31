@@ -2,27 +2,28 @@
 using HealthMed.Backend.Dominio.ObjetosDeValor;
 
 namespace HealthMed.Backend.Dominio.Entidades;
+
 public class EmailAgendamento
 {
     public string NomeMedico { get; private set; }
     public Email EmailMedico { get; private set; }
     public string NomePaciente { get; private set; }
     public DateTime DataHoraConsulta { get; private set; }
-    public ETipoMensangem TipoDaMensangem { get; private set; }
-    public IList<string> Erros { get; private set; }
+    public ETipoMensagem TipoDaMensagem { get; private set; }
+    public IList<string> Erros { get; private set; } = new List<string>(); // Inicialização da lista de erros
 
-    public EmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensangem tipoMensangem)
+    public EmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensagem tipoMensagem)
     {
-        ValidarEmailAgendamento(nomeMedico,emailMedico,nomePaciente,dataHoraConsulta,tipoMensangem);
+        ValidarEmailAgendamento(nomeMedico, emailMedico, nomePaciente, dataHoraConsulta, tipoMensagem);
 
         NomeMedico = nomeMedico;
         NomePaciente = nomePaciente;
         DataHoraConsulta = dataHoraConsulta;
         EmailMedico = emailMedico;
-        TipoDaMensangem = tipoMensangem;
+        TipoDaMensagem = tipoMensagem;
     }
 
-    private void ValidarEmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensangem tipoMensangem)
+    private void ValidarEmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensagem tipoMensagem)
     {
         if (string.IsNullOrWhiteSpace(nomeMedico))
             Erros.Add("Nome do médico é obrigatório");
@@ -33,31 +34,30 @@ public class EmailAgendamento
         if (string.IsNullOrWhiteSpace(nomePaciente))
             Erros.Add("Nome do paciente é obrigatório");
 
-        if (dataHoraConsulta == DateTime.MinValue)
-            Erros.Add("Data e hora da consulta é obrigatório");
+        if (dataHoraConsulta == default)
+            Erros.Add("Data e hora da consulta são obrigatórios");
 
-        if (tipoMensangem == ETipoMensangem.Cancelamento && DateTime.Now.AddHours(24) < dataHoraConsulta)
+        if (tipoMensagem == ETipoMensagem.Cancelamento && DateTime.Now.AddHours(24) > dataHoraConsulta)
             Erros.Add("Não é possível cancelar uma consulta com menos de 24 horas de antecedência");
     }
 
-    public string Assunto => TipoDaMensangem switch
+    public string Assunto => TipoDaMensagem switch
     {
-        ETipoMensangem.Agendamento => "HealthMed - Nova consulta agendada",
-
-        ETipoMensangem.Cancelamento => "HealthMed - Consulta cancelada",
+        ETipoMensagem.Agendamento => "HealthMed - Nova consulta agendada",
+        ETipoMensagem.Cancelamento => "HealthMed - Consulta cancelada",
         _ => throw new ArgumentOutOfRangeException()
     };
 
     public string Mensagem =>
-        TipoDaMensangem switch
+        TipoDaMensagem switch
         {
-            ETipoMensangem.Agendamento => $"Olá, Dr. {NomeMedico}!\n\n" +
+            ETipoMensagem.Agendamento => $"Olá, Dr. {NomeMedico}!\n\n" +
                                            "Você tem uma nova consulta marcada!\n" +
-                                          $"Paciente: {NomePaciente}.\n" +
-                                          $"Data e horário: {DataHoraConsulta:dd/MM/yyyy} às {DataHoraConsulta:HH:mm}.",
+                                           $"Paciente: {NomePaciente}.\n" +
+                                           $"Data e horário: {DataHoraConsulta:dd/MM/yyyy} às {DataHoraConsulta:HH:mm}.",
 
-            ETipoMensangem.Cancelamento => $"Olá, Dr. {NomeMedico}!\n\n" +
-                                            "Sua consulta foi cancelada!\n" +
+            ETipoMensagem.Cancelamento => $"Olá, Dr. {NomeMedico}!\n\n" +
+                                           "Sua consulta foi cancelada!\n" +
                                            $"Paciente: {NomePaciente}.\n" +
                                            $"Data e horário: {DataHoraConsulta:dd/MM/yyyy} às {DataHoraConsulta:HH:mm}.",
             _ => throw new ArgumentOutOfRangeException()
