@@ -158,10 +158,27 @@ namespace HealthMed.Backend.Aplicacao
 
         public async Task<ResponseResult<List<AgendaResponse>>> ObterAgenda(Guid id)
         {
-            var response = new ResponseResult<List<AgendaResponse>>();
-            var agenda = await _repository.ObterAgenda(id);
+            try
+            {
+                var response = new ResponseResult<List<AgendaResponse>>();
+                var agendas = await _repository.ObterAgenda(id);
+                var listaDeAgendas = new List<AgendaResponse>();
 
-            return response;
+                foreach (var agenda in agendas)
+                {
+                    var agendaDto = new AgendaResponse().ConvertToDto(agenda);
+                    listaDeAgendas.Add(agendaDto);
+                }
+
+                return new ResponseResult<List<AgendaResponse>>() { Status = 200, Data = listaDeAgendas };
+            }
+            catch (Exception)
+            {
+
+                return new ResponseResult<List<AgendaResponse>>() { Status = 500, Data = null };
+
+            }
+
         }
 
 
