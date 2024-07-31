@@ -42,10 +42,13 @@ public class AgendamentoService : IAgendamentoService
 
         var agendamento = new Agendamentos(paciente, horario);
 
-        if (agendamento.Erros.Any())
+        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, paciente.Nome, horario.HorarioInicio, ETipoMensangem.Agendamento);
+
+        if (agendamento.Erros.Any() && dadosDoEmail.Erros.Any())
         {
+            var erros = agendamento.Erros.Concat(dadosDoEmail.Erros).ToList();
             response.Status = 400;
-            response.Erros = agendamento.Erros;
+            response.Erros = erros;
             return response;
         }
 
@@ -54,10 +57,17 @@ public class AgendamentoService : IAgendamentoService
         await _horarioRepository.AlterarAsync(horario);
         await _agendamentoRepository.AdicionarAsync(agendamento);
 
-        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, paciente.Nome, horario.HorarioInicio, ETipoMensangem.Agendamento);
 
-        await _emailService.EnviarEmailAsync(dadosDoEmail);
-        
+        var email = await _emailService.EnviarEmailAsync(dadosDoEmail);
+
+        if (!email)
+        {
+            response.Status = 200;
+            response.Erros.Add("Erro ao enviar email de confirmação, mas a consulta foi agendada com sucesso!");
+            response.Data = true;
+            return response;
+        }
+            
         response.Data = true;
         return response;
     }
@@ -86,12 +96,27 @@ public class AgendamentoService : IAgendamentoService
 
         horario.HorarioDisponivel();
 
+        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, agendamento.Paciente.Nome, horario.HorarioInicio, ETipoMensangem.Cancelamento);
+
+        if (dadosDoEmail.Erros.Any())
+        {
+            response.Status = 400;
+            response.Erros = dadosDoEmail.Erros;
+            return response;
+        }
+
         await _horarioRepository.AlterarAsync(horario);
         await _agendamentoRepository.DeletarAsync(agendamento);
 
-        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, agendamento.Paciente.Nome, horario.HorarioInicio, ETipoMensangem.Cancelamento);
+        var email = await _emailService.EnviarEmailAsync(dadosDoEmail);
 
-        await _emailService.EnviarEmailAsync(dadosDoEmail);
+        if (!email)
+        {
+            response.Status = 200;
+            response.Erros.Add("Erro ao enviar email de cancelamento, mas a consulta foi cancelada com sucesso!");
+            response.Data = true;
+            return response;
+        }
 
         response.Data = true;
         return response;
