@@ -9,14 +9,35 @@ public class EmailAgendamento
     public string NomePaciente { get; private set; }
     public DateTime DataHoraConsulta { get; private set; }
     public ETipoMensangem TipoDaMensangem { get; private set; }
+    public IList<string> Erros { get; private set; }
 
     public EmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensangem tipoMensangem)
     {
+        ValidarEmailAgendamento(nomeMedico,emailMedico,nomePaciente,dataHoraConsulta,tipoMensangem);
+
         NomeMedico = nomeMedico;
         NomePaciente = nomePaciente;
         DataHoraConsulta = dataHoraConsulta;
         EmailMedico = emailMedico;
         TipoDaMensangem = tipoMensangem;
+    }
+
+    private void ValidarEmailAgendamento(string nomeMedico, Email emailMedico, string nomePaciente, DateTime dataHoraConsulta, ETipoMensangem tipoMensangem)
+    {
+        if (string.IsNullOrWhiteSpace(nomeMedico))
+            Erros.Add("Nome do médico é obrigatório");
+
+        if (emailMedico == null)
+            Erros.Add("Email do médico é obrigatório");
+
+        if (string.IsNullOrWhiteSpace(nomePaciente))
+            Erros.Add("Nome do paciente é obrigatório");
+
+        if (dataHoraConsulta == DateTime.MinValue)
+            Erros.Add("Data e hora da consulta é obrigatório");
+
+        if (tipoMensangem == ETipoMensangem.Cancelamento && DateTime.Now.AddHours(24) < dataHoraConsulta)
+            Erros.Add("Não é possível cancelar uma consulta com menos de 24 horas de antecedência");
     }
 
     public string Assunto => TipoDaMensangem switch
