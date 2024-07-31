@@ -50,7 +50,7 @@ public class AgendamentoService : IAgendamentoService
 
         await _horarioRepository.AlterarAsync(horario);
         await _agendamentoRepository.AdicionarAsync(agendamento);
-
+        response.Data = true;
         return response;
     }
 

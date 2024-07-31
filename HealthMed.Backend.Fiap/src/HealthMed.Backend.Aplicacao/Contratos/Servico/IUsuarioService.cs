@@ -1,4 +1,5 @@
 ﻿using HealthMed.Backend.Aplicacao.Comunicacao;
+using HealthMed.Backend.Aplicacao.DTOs.Horario;
 using HealthMed.Backend.Aplicacao.DTOs.Usuarios;
 
 namespace HealthMed.Backend.Aplicacao.Contratos.Servico
@@ -12,5 +13,6 @@ namespace HealthMed.Backend.Aplicacao.Contratos.Servico
         Task<ResponseResult<UsuarioDto>> GetById(Guid Id);
         Task<ResponseResult<UsuarioLogadoResponse>> Login(string email, string senha);
         Task<ResponseResult<List<MedicoResponse>>> BuscarMedicos();
+        Task<ResponseResult<List<AgendaResponse>>> ObterAgenda(Guid id);
     }
 }

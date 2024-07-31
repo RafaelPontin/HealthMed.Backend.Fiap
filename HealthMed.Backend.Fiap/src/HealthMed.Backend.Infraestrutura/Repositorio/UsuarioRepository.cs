@@ -24,7 +24,18 @@ namespace HealthMed.Backend.Infraestrutura.Repositorio
         public async Task<Usuario> ObterPorEmail(string email)
         {
             return await _dbContext.Usuario.Where(x => x.Email.EnderecoEmail == email).FirstOrDefaultAsync();
+        }
 
+        public async Task<List<Horarios>> ObterAgenda(Guid id)
+        {
+            var lista = await 
+                _dbContext.Usuario
+                .Where(x => x.Id == id)
+                .SelectMany(x => x.Horarios)
+                .Where(x => x.Disponivel)
+                .Include(x => x.Medico)
+                .ToListAsync();
+            return lista;
         }
     }
 }
