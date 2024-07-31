@@ -7,5 +7,6 @@ namespace HealthMed.Backend.Aplicacao.Contratos.Persistencia
         Task<Usuario> ObterPorEmail(string email);
         Task<Usuario> Login(string email, string senha);
         Task<List<Usuario>> BuscarMedicos();
+        Task<List<Horarios>> ObterAgenda(Guid id);
     }
 }

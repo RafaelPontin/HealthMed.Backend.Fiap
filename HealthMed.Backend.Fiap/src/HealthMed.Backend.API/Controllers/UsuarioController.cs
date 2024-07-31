@@ -64,5 +64,13 @@ namespace HealthMed.Backend.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("buscar-agenda-medico")]
+        public async Task<IActionResult> BuscarAgendaMedicoAsync(Guid idMedico)
+        {
+            var response = await _usuarioService.ObterAgenda(idMedico);
+
+            return Ok(response);
+        }
     }
 }

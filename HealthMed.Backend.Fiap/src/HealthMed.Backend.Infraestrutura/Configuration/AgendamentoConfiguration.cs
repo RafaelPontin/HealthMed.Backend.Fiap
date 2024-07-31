@@ -8,6 +8,11 @@ namespace HealthMed.Backend.Infraestrutura.Configuration
     {
         public void Configure(EntityTypeBuilder<Agendamentos> builder)
         {
+            builder.ToTable("Agendamentos");
+            builder.HasKey(a => a.Id);
+            builder.HasOne(x => x.Paciente);
+            builder.HasOne(x => x.Horario);
+            builder.Property(x => x.HorarioCriacao).HasColumnType("datetime").IsRequired();
         }
     }
 }

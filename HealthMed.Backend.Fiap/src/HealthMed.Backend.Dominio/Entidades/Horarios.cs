@@ -30,9 +30,9 @@ public class Horarios : Base
         Disponivel = true;
     }
 
+    public void HorarioDisponivel() => Disponivel = true;
     public void HorarioIndisponivel() => Disponivel = false;
     
-
     private void SetId(Guid idHorario)
     {
         if (idHorario == Guid.Empty) AddErro($"Id vazio {idHorario}");

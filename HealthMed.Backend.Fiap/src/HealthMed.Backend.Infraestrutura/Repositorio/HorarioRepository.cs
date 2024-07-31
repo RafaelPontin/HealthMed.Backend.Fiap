@@ -1,6 +1,7 @@
 ﻿using HealthMed.Backend.Aplicacao.Contratos.Persistencia;
 using HealthMed.Backend.Dominio.Entidades;
 using HealthMed.Backend.Infraestrutura.Persistencia;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthMed.Backend.Infraestrutura.Repositorio
 {
@@ -23,6 +24,13 @@ namespace HealthMed.Backend.Infraestrutura.Repositorio
         public async Task<bool> GetHorarioDisponivel(Guid id)
         {
             return _dbContext.Horarios.Where(h => h.Id == id).Select(h => h.Disponivel).FirstOrDefault();
+        }
+
+        public override async Task<Horarios> ObterPorIdAsync(Guid id)
+        {
+            return await _dbContext.Horarios
+                .Include(h => h.Medico)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
     }
