@@ -12,6 +12,7 @@ namespace HealthMed.Backend.Aplicacao
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IHorarioService, HorarioService>();
             services.AddScoped<IAgendamentoService, AgendamentoService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }
