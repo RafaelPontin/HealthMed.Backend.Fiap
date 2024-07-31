@@ -74,8 +74,9 @@ public class Usuario : Base
 
     public void AlterarDadosDoUsuario(string nome, string cpf, ETipoUsuario tipoUsuario, string crm = null)
     {
-        if (!UsuarioEhValido(nome, cpf, Senha, Email.EnderecoEmail, tipoUsuario))
+        if (!UsuarioEhValido(nome, cpf, Senha, Email.EnderecoEmail, tipoUsuario, crm))
             Erros.Add($"É necessário informar todos os campos.");
+        
         Nome = nome.Trim();
         Cpf = cpf.Trim();
         CRM = tipoUsuario == ETipoUsuario.Medico ? crm?.Trim() : null;
