@@ -1,5 +1,5 @@
 ﻿namespace HealthMed.Backend.Dominio.Enum;
-public enum ETipoMensangem
+public enum ETipoMensagem
 {
     Agendamento = 1,
     Cancelamento = 2

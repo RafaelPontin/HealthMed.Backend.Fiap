@@ -42,7 +42,7 @@ public class AgendamentoService : IAgendamentoService
 
         var agendamento = new Agendamentos(paciente, horario);
 
-        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, paciente.Nome, horario.HorarioInicio, ETipoMensangem.Agendamento);
+        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, paciente.Nome, horario.HorarioInicio, ETipoMensagem.Agendamento);
 
         if (agendamento.Erros.Any() && dadosDoEmail.Erros.Any())
         {
@@ -96,7 +96,7 @@ public class AgendamentoService : IAgendamentoService
 
         horario.HorarioDisponivel();
 
-        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, agendamento.Paciente.Nome, horario.HorarioInicio, ETipoMensangem.Cancelamento);
+        var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, agendamento.Paciente.Nome, horario.HorarioInicio, ETipoMensagem.Cancelamento);
 
         if (dadosDoEmail.Erros.Any())
         {
