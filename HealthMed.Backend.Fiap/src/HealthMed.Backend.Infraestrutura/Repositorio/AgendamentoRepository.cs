@@ -19,4 +19,12 @@ public class AgendamentoRepository : RepositoryBase<Agendamentos>, IAgendamentos
             .ToListAsync();
     }
 
+    public override async Task<Agendamentos> ObterPorIdAsync(Guid id)
+    {
+        return await _dbContext.Agendamentos
+            .Include(a => a.Paciente)
+            .Include(a => a.Horario)
+            .FirstOrDefaultAsync(a => a.Id == id);
+    }
+
 }

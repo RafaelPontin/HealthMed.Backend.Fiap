@@ -18,13 +18,13 @@ public class AgendamentoService : IAgendamentoService
         _usuarioRepository = usuarioRepository;
     }
 
-    public async Task<ResponseResult<IEnumerable<AgendamentoResponseDto>>> ObterAgendamentosPorPaciente(Guid idPaciente)
+    public async Task<ResponseResult<List<AgendamentoResponseDto>>> ObterAgendamentosPorPaciente(Guid idPaciente)
     {
-        var response = new ResponseResult<IEnumerable<AgendamentoResponseDto>>();
+        var response = new ResponseResult<List<AgendamentoResponseDto>>();
 
         var agendamentos = await _agendamentoRepository.ObterPorPacienteAsync(idPaciente);
 
-        response.Data = agendamentos.Select(a => new AgendamentoResponseDto(a));
+        response.Data = agendamentos.Select(a => new AgendamentoResponseDto(a)).ToList();
 
         return response;
     }
@@ -54,7 +54,7 @@ public class AgendamentoService : IAgendamentoService
         return response;
     }
 
-    public async Task<ResponseResult<bool>> CancelarAgendamento(Guid idAgendamento)
+    public async Task<ResponseResult<bool>> CancelarAgendamento(Guid idAgendamento, Guid idPaciente)
     {
         var response = new ResponseResult<bool>();
 
@@ -67,13 +67,20 @@ public class AgendamentoService : IAgendamentoService
             return response;
         }
 
+        if (agendamento.Paciente.Id != idPaciente)
+        {
+            response.Status = 403;
+            response.Erros.Add("Você não tem permissão para cancelar este agendamento");
+            return response;
+        }
+
         var horario = await _horarioRepository.ObterPorIdAsync(agendamento.Horario.Id);
 
         horario.HorarioDisponivel();
 
         await _horarioRepository.AlterarAsync(horario);
         await _agendamentoRepository.DeletarAsync(agendamento);
-
+        response.Data = true;
         return response;
     }
 }

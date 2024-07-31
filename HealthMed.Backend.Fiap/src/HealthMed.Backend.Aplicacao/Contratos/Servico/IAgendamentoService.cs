@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HealthMed.Backend.Aplicacao.Contratos.Servico;
 public interface IAgendamentoService
 {
-    Task<ResponseResult<IEnumerable<AgendamentoResponseDto>>> ObterAgendamentosPorPaciente(Guid idPaciente);
+    Task<ResponseResult<List<AgendamentoResponseDto>>> ObterAgendamentosPorPaciente(Guid idPaciente);
     Task<ResponseResult<bool>> NovoAgendamento(NovoAgendamentoDto dto, Guid idPaciente);
-    Task<ResponseResult<bool>> CancelarAgendamento(Guid idAgendamento);
+    Task<ResponseResult<bool>> CancelarAgendamento(Guid idAgendamento, Guid idPaciente);
 }

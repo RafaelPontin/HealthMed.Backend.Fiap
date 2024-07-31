@@ -36,7 +36,8 @@ public class AgendamentoController : BaseController
     [HttpDelete("CancelarAgendamento/{idAgendamento}")]
     public async Task<IActionResult> CancelarAgendamento(Guid idAgendamento)
     {
-        var response = await _agendamentoService.CancelarAgendamento(idAgendamento);
+        var user = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+        var response = await _agendamentoService.CancelarAgendamento(idAgendamento, user);
 
         return StatusCode(response.Status, response);
     }
