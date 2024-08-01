@@ -43,8 +43,8 @@ public class EmailAgendamento
 
     public string Assunto => TipoDaMensagem switch
     {
-        ETipoMensagem.Agendamento => "HealthMed - Nova consulta agendada",
-        ETipoMensagem.Cancelamento => "HealthMed - Consulta cancelada",
+        ETipoMensagem.Agendamento => "Health&Med - Nova consulta agendada",
+        ETipoMensagem.Cancelamento => "Health&Med - Consulta cancelada",
         _ => throw new ArgumentOutOfRangeException()
     };
 
