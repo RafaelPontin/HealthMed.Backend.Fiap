@@ -44,7 +44,7 @@ public class AgendamentoService : IAgendamentoService
 
         var dadosDoEmail = new EmailAgendamento(horario.Medico.Nome, horario.Medico.Email, paciente.Nome, horario.HorarioInicio, ETipoMensagem.Agendamento);
 
-        if (agendamento.Erros.Any() && dadosDoEmail.Erros.Any())
+        if (agendamento.Erros.Any() || dadosDoEmail.Erros.Any())
         {
             var erros = agendamento.Erros.Concat(dadosDoEmail.Erros).ToList();
             response.Status = 400;

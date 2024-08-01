@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.Backend.Infraestrutura.Migrations
 {
     [DbContext(typeof(HealthMedContext))]
-    [Migration("20240730100257_Inicial")]
-    partial class Inicial
+    [Migration("20240731235902_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,9 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("HorarioCriacao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
-                    b.Property<Guid?>("HorariosId")
+                    b.Property<Guid?>("HorarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("PacienteId")
@@ -42,11 +42,11 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HorariosId");
+                    b.HasIndex("HorarioId");
 
                     b.HasIndex("PacienteId");
 
-                    b.ToTable("Agendamentos");
+                    b.ToTable("Agendamentos", (string)null);
                 });
 
             modelBuilder.Entity("HealthMed.Backend.Dominio.Entidades.Horarios", b =>
@@ -55,7 +55,10 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("HorarioCriacao")
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("HorarioCriacao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("HorarioFinal")
@@ -102,15 +105,15 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
 
             modelBuilder.Entity("HealthMed.Backend.Dominio.Entidades.Agendamentos", b =>
                 {
-                    b.HasOne("HealthMed.Backend.Dominio.Entidades.Horarios", "Horarios")
+                    b.HasOne("HealthMed.Backend.Dominio.Entidades.Horarios", "Horario")
                         .WithMany()
-                        .HasForeignKey("HorariosId");
+                        .HasForeignKey("HorarioId");
 
                     b.HasOne("HealthMed.Backend.Dominio.Entidades.Usuario", "Paciente")
                         .WithMany("Agendamentos")
                         .HasForeignKey("PacienteId");
 
-                    b.Navigation("Horarios");
+                    b.Navigation("Horario");
 
                     b.Navigation("Paciente");
                 });

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthMed.Backend.Infraestrutura.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,8 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HorarioInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HorarioFinal = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HorarioCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HorarioCriacao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Disponivel = table.Column<bool>(type: "bit", nullable: false),
                     MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -53,16 +54,16 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HorarioCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HorarioCriacao = table.Column<DateTime>(type: "datetime", nullable: false),
                     PacienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    HorariosId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    HorarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Agendamentos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Agendamentos_Horarios_HorariosId",
-                        column: x => x.HorariosId,
+                        name: "FK_Agendamentos_Horarios_HorarioId",
+                        column: x => x.HorarioId,
                         principalTable: "Horarios",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -73,9 +74,9 @@ namespace HealthMed.Backend.Infraestrutura.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_HorariosId",
+                name: "IX_Agendamentos_HorarioId",
                 table: "Agendamentos",
-                column: "HorariosId");
+                column: "HorarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Agendamentos_PacienteId",
