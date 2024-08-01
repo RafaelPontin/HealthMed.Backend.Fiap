@@ -96,3 +96,37 @@ ___
   - URL: /api/Usuario/buscar-agenda-medico/{idMedico}
   - Autorização:  Bearer <token>
   - Descrição: End point responsável por retornar os horários disponíveis pelo ID do médico.
+
+## Horario
+
+- Cadastra Horario
+  - Método: POST
+  - URL: /api/Horario/cadastrar-horarios
+  - Autorização:  Bearer <token>
+  - Descrição: End point responsável por cadastrar o horario disponivel do medico.
+  - Exemplo de Request Body:
+    ```json
+    {
+      "horarioInicio": "2024-08-01T02:19:15.674Z",
+      "horarioFinal": "2024-08-01T02:19:15.674Z"
+    }
+
+- Alterar Horario
+  - Método: PUT
+  - URL: /api/Horario/alterar-horarios
+  - Autorização:  Bearer <token>
+  - Descrição: End point responsável por alterar o horario já cadastrado do medico.
+  - Exemplo de Request Body:
+  ```json
+    {
+      "horarioInicio": "2024-08-01T02:21:30.346Z",
+      "horarioFinal": "2024-08-01T02:21:30.346Z",
+      "idHorario": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+
+- Horario Indisponivel
+    - Método: PUT
+    - URL: /api/Horario/horario-indisponivel/{idHorario}
+    - Autorização:  Bearer <token>
+    - Descrição: End point responsável por cancelar o horario já cadastrado do medico.
+    
