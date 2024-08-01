@@ -62,6 +62,23 @@ ___
       "crm": "string"
     }
     ```
+  - Exemplo de Response Body:
+  ```json
+  {
+    "data": {
+      "id": "Guid",
+      "nome": "string",
+      "cpf": "string",
+      "email": "string",
+      "crm": "string"
+    },
+    "title": "string",
+    "status": "int",
+    "erros": [
+      "string"
+    ]
+  }
+  ```
     
 - Cadastrar Paciente
   - Método: POST
@@ -77,6 +94,24 @@ ___
       "senha": "string"
     }
     ```
+    - Exemplo de Response Body:
+      ```json
+      {
+        "data": {
+          "id": "Guid",
+          "nome": "string",
+          "cpf": "string",
+          "email": "string",
+          "crm": "string"
+        },
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
+    
 
 - Login
   - Método: POST
@@ -89,18 +124,91 @@ ___
       "senha": "string"
     }
     ```
+    - Exemplo de Response Body:
+      ```json
+      {
+        "data": {
+          "id": "Guid",
+          "nome": "string",
+          "email": "string",
+          "accessToken": "string"
+        },
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
     
 - Buscar Agenda do Médico
   - Método: GET
   - URL: /api/Usuario/buscar-agenda-medico
   - Autorização: Bearer <token>
   - Descrição: End point responsável por retornar os médicos disponíveis para o paciente autenticado.
-
+    - Exemplo de Response Body:
+      ```json
+          {
+            "data": [
+              {
+                "id": "Guid",
+                "nome": "string",
+                "cpf": "string",
+                "email": "string",
+                "crm": "string"
+              }
+            ],
+            "title": "string",
+            "status": "int",
+            "erros": [
+              "string"
+            ]
+          }
+      ```
+      - Exemplo de Response Body:
+      ```json
+      {
+        "data": [
+          {
+            "id": "Guid",
+            "nome": "string",
+            "cpf": "string",
+            "email": "string",
+            "crm": "string"
+          }
+        ],
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
+    
 - Buscar Agenda do Médico por ID
   - Método: GET
   - URL: /api/Usuario/buscar-agenda-medico/{idMedico}
   - Autorização:  Bearer <token>
   - Descrição: End point responsável por retornar os horários disponíveis pelo ID do médico.
+  - Exemplo de Response Body:
+      ```json
+      {
+        "data": [
+          {
+            "id": "Guid",
+            "horarioInicio": "DateTime",
+            "horarioFinal": "DateTime",
+            "nomeMedico": "string",
+            "medicoId": "Guid"
+          }
+        ],
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
 
 ## Horario
 
@@ -112,10 +220,26 @@ ___
   - Exemplo de Request Body:
     ```json
     {
-      "horarioInicio": "2024-08-01T02:19:15.674Z",
-      "horarioFinal": "2024-08-01T02:19:15.674Z"
+      "horarioInicio": "DateTime",
+      "horarioFinal": "DateTime"
     }
     ```
+    - Exemplo de Response Body:
+     ```json
+     {
+        "data": {
+          "id": "Guid",
+          "horarioInicio": "DateTime",
+          "horarioFinal": "DateTime"
+        },
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
+      
 
 - Alterar Horario
   - Método: PUT
@@ -125,17 +249,44 @@ ___
   - Exemplo de Request Body:
   ```json
     {
-      "horarioInicio": "2024-08-01T02:21:30.346Z",
-      "horarioFinal": "2024-08-01T02:21:30.346Z",
-      "idHorario": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      "horarioInicio": "DateTime",
+      "horarioFinal": "DateTime",
+      "idHorario": "Guid"
     }
   ```
+ - Exemplo de Response Body:
+     ```json
+       {
+          "data": {
+            "id": "Guid",
+            "horarioInicio": "DateTime",
+            "horarioFinal": "DateTime"
+          },
+          "title": "string",
+          "status": "int",
+          "erros": [
+              "string"
+          ]
+     }
+     ``` 
+  
 
 - Horário Indisponível
     - Método: PUT
     - URL: /api/Horario/horario-indisponivel/{idHorario}
     - Autorização:  Bearer <token>
     - Descrição: End point responsável por cancelar o horario já cadastrado do medico.
+    - Exemplo de Response Body:
+     ```json
+     {
+        "data": "boolean",
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+     ```
  
 ## Agendamento
 
@@ -153,7 +304,7 @@ ___
   - Exemplo de Request Body:
   ```json
     {
-      "horarioId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      "horarioId": "Guid"
     }
   ```
 
