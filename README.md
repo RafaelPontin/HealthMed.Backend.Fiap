@@ -18,7 +18,7 @@ ___
 ___
 ## Rodar Projeto 
 - Clone o Repositorio
-- Instale o DotNet 7 e o Sql Server
+- Instale o .NET 7 e o Sql Server
 - Rode o Migration com o Comando: 
   ```bash Update-Database```
   
@@ -36,7 +36,7 @@ ___
 
 ![image](https://github.com/user-attachments/assets/f5c00c49-5da9-4778-897a-6db8d38cc779)
 
-- Caso executado todos os passos corretamente, abrirar o swagger:
+- Se todos os passos anteriores foram executados corretamente, o Swagger será aberto automaticamente.
   
   ![image](https://github.com/user-attachments/assets/062bef07-a808-4cb0-b0d0-e4ce8a127830)
 
