@@ -295,7 +295,34 @@ ___
   - URL: /api/Agendamento/ObterAgendamentoPorPaciente
   - Autorização:  Bearer <token>
   - Descrição: End point responsável por retornar todas as consulta do paciente.
-     
+  - Exemplo de Response Body:
+     ```json
+         {
+        "data": [
+          {
+            "id": "Guid",
+            "horarioCriacao": "DateTime",
+            "paciente": {
+              "id": "Guid",
+              "nome": "string",
+              "cpf": "string",
+              "email": "string",
+              "crm": "string"
+            },
+            "horario": {
+              "id": "Guid",
+              "horarioInicio": "DateTime",
+              "horarioFinal": "DateTime"
+            }
+          }
+        ],
+        "title": "string",
+        "status": "int",
+        "erros": [
+          "string"
+        ]
+      }
+      ```
 - Novo Agendamento
   - Método: POST
   - URL: /api/Agendamento/NovoAgendamento
@@ -307,9 +334,35 @@ ___
       "horarioId": "Guid"
     }
   ```
+  - Exemplo de Response Body:
+     ```json
+     {
+      "data": "boolean",
+      "title": "string",
+      "status": "int",
+      "erros": [
+        "string"
+      ]
+    }
+     ```
+  - Caso tenho sucesso no agendamento, receberar esse email:
+    
+  ![image](https://github.com/user-attachments/assets/ae474a44-a939-4ace-b1ca-99d36b7b0bc6)
+
 
 - Cancelar Agendamento
     - Método: DELETE
     - URL: /api/Agendamento/CancelarAgendamento/{idAgendamento}
     - Autorização:  Bearer <token>
     - Descrição: End point responsável por cancelar o agendamento de um horario com o medico, caso obtenha sucesso no cancelamento e disparado um email para o medico
+    - Exemplo de Response Body:
+     ```json
+             {
+          "data": "boolean",
+          "title": "string",
+          "status": "int",
+          "erros": [
+            "string"
+          ]
+        }
+      ```
