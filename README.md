@@ -58,6 +58,7 @@ ___
       "senha": "string", 
       "crm": "string"
     }
+    ```
     
 - Cadastrar Paciente
   - Método: POST
@@ -72,6 +73,7 @@ ___
       "confirmacaoSenha": "string", 
       "senha": "string"
     }
+    ```
 
 - Login
   - Método: POST
@@ -79,11 +81,11 @@ ___
   - Descrição: End point responsável pelo login do usuário.
   - Exemplo de Request Body:
     ```json
-    Copiar código
     {
       "login": "string",  
       "senha": "string"
     }
+    ```
     
 - Buscar Agenda do Médico
   - Método: GET
@@ -110,6 +112,7 @@ ___
       "horarioInicio": "2024-08-01T02:19:15.674Z",
       "horarioFinal": "2024-08-01T02:19:15.674Z"
     }
+    ```
 
 - Alterar Horario
   - Método: PUT
@@ -123,10 +126,36 @@ ___
       "horarioFinal": "2024-08-01T02:21:30.346Z",
       "idHorario": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     }
+  ```
 
-- Horario Indisponivel
+- Horário Indisponível
     - Método: PUT
     - URL: /api/Horario/horario-indisponivel/{idHorario}
     - Autorização:  Bearer <token>
     - Descrição: End point responsável por cancelar o horario já cadastrado do medico.
-    
+ 
+## Agendamento
+
+- Obter Agendamento Por Paciente
+  - Método: GET
+  - URL: /api/Agendamento/ObterAgendamentoPorPaciente
+  - Autorização:  Bearer <token>
+  - Descrição: End point responsável por retornar todas as consulta do paciente.
+     
+- Novo Agendamento
+  - Método: POST
+  - URL: /api/Agendamento/NovoAgendamento
+  - Autorização:  Bearer <token>
+  - Descrição: End point responsável por agendar um horario com o medico, caso obtenha sucesso no cadastro é disparado um email para o medico.
+  - Exemplo de Request Body:
+  ```json
+    {
+      "horarioId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+  ```
+
+- Cancelar Agendamento
+    - Método: DELETE
+    - URL: /api/Agendamento/CancelarAgendamento/{idAgendamento}
+    - Autorização:  Bearer <token>
+    - Descrição: End point responsável por cancelar o agendamento de um horario com o medico, caso obtenha sucesso no cancelamento e disparado um email para o medico
