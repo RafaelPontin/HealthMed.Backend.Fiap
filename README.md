@@ -16,6 +16,9 @@ ___
 - Autenticação: JWT
 
 ___
+
+- Criterio de aceite do projeto : https://github.com/RafaelPontin/HealthMed.Backend.Fiap/wiki
+
 ## Rodar Projeto 
 - Clone o Repositorio
 - Instale o .NET 7 e o Sql Server
