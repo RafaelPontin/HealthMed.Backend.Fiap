@@ -347,8 +347,7 @@ ___
      ```
   - Caso tenho sucesso no agendamento, receberar esse email:
     
-  ![image](https://github.com/user-attachments/assets/ae474a44-a939-4ace-b1ca-99d36b7b0bc6)
-
+  ![image](https://github.com/user-attachments/assets/9b914a1e-c56f-4372-a054-88db6e172768)
 
 - Cancelar Agendamento
     - Método: DELETE
