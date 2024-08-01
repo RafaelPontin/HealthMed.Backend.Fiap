@@ -357,7 +357,7 @@ ___
     - Descrição: End point responsável por cancelar o agendamento de um horario com o medico, caso obtenha sucesso no cancelamento e disparado um email para o medico
     - Exemplo de Response Body:
      ```json
-             {
+        {
           "data": "boolean",
           "title": "string",
           "status": "int",
@@ -365,4 +365,4 @@ ___
             "string"
           ]
         }
-      ```
+   ```
