@@ -40,3 +40,59 @@ ___
   
   ![image](https://github.com/user-attachments/assets/062bef07-a808-4cb0-b0d0-e4ce8a127830)
 
+  ___
+  # End Points
+
+ ## Usuário
+- Cadastrar Médico
+  - Método: POST
+  - URL: /api/Usuario/cadastrar-medico
+  - Descrição: End point responsável pela criação do médico.
+  - Exemplo de Request Body:
+    ```json
+    {
+      "nome": "string", 
+      "cpf": "string",  
+      "email": "string", 
+      "confirmacaoSenha": "string", 
+      "senha": "string", 
+      "crm": "string"
+    }
+    
+- Cadastrar Paciente
+  - Método: POST
+  - URL: /api/Usuario/cadastrar-paciente
+  - Descrição: End point responsável pela criação do paciente.
+  - Exemplo de Request Body:
+    ```json
+    {
+      "nome": "string", 
+      "cpf": "string", 
+      "email": "string", 
+      "confirmacaoSenha": "string", 
+      "senha": "string"
+    }
+
+- Login
+  - Método: POST
+  - URL: /api/Usuario/Login
+  - Descrição: End point responsável pelo login do usuário.
+  - Exemplo de Request Body:
+    ```json
+    Copiar código
+    {
+      "login": "string",  
+      "senha": "string"
+    }
+    
+- Buscar Agenda do Médico
+  - Método: GET
+  - URL: /api/Usuario/buscar-agenda-medico
+  - Autorização: Bearer <token>
+  - Descrição: End point responsável por retornar os médicos disponíveis para o paciente autenticado.
+
+- Buscar Agenda do Médico por ID
+  - Método: GET
+  - URL: /api/Usuario/buscar-agenda-medico/{idMedico}
+  - Autorização:  Bearer <token>
+  - Descrição: End point responsável por retornar os horários disponíveis pelo ID do médico.
