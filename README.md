@@ -27,7 +27,7 @@ ___
   
   ![image](https://github.com/user-attachments/assets/b45ba290-16eb-4648-9ec0-5905b625fab7)
 
-- Sera criado o banco no SQL Server:
+- Será criado o banco no SQL Server:
   
   ![image](https://github.com/user-attachments/assets/f5d2c15c-d8dc-4e8a-9c6d-6ddbc3bb6a7a)
 
