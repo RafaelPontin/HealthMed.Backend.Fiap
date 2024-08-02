@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.Backend.Infraestrutura.Migrations
 {
     [DbContext(typeof(HealthMedContext))]
-    [Migration("20240731235902_init")]
-    partial class init
+    [Migration("20240802215009_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

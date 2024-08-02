@@ -53,7 +53,7 @@ namespace HealthMed.Backend.API.Configurations
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-            //app.MigrateDatabase();
+            app.MigrateDatabase();
         }
 
         private static void AddSwagger(this IServiceCollection services)
